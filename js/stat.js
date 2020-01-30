@@ -43,6 +43,8 @@ window.renderStatistics = function (ctx, names, times) {
 
   var renderColumn = function (index, name, value) {
     ctx.fillStyle = 'black';
+    var maxValue = getMaxValue(times);
+    var nameY = CLOUD_Y + CLOUD_HEIGHT - TEXT_GAP;    
     var colHeight = Math.floor(value * HIISTOGRAM_HEIGHT / maxValue);
     var colX = CLOUD_X + (index + 1) * COL_WIDTH + index * COL_GAP;
     ctx.fillText(name, colX, nameY);
@@ -59,8 +61,6 @@ window.renderStatistics = function (ctx, names, times) {
   }
 
   renderCloud();
-  var maxValue = getMaxValue(times);
-  var nameY = CLOUD_Y + CLOUD_HEIGHT - TEXT_GAP;
   for (var i = 0; i < times.length; i++) {
     renderColumn(i, names[i], times[i]);
   }
