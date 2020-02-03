@@ -26,7 +26,7 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillText('Ура вы победили!', CLOUD_X + TEXT_GAP, firstLineY);
     var secondLineY = firstLineY + TEXT_GAP;
     ctx.fillText('Список результатов: ', CLOUD_X + TEXT_GAP, secondLineY);
-  }
+  };
 
   var getMaxValue = function (array) {
     if (array.length === 0) {
@@ -39,26 +39,26 @@ window.renderStatistics = function (ctx, names, times) {
       }
     }
     return max;
-  }
+  };
 
   var renderColumn = function (index, name, value) {
     ctx.fillStyle = 'black';
     var maxValue = getMaxValue(times);
-    var nameY = CLOUD_Y + CLOUD_HEIGHT - TEXT_GAP;    
+    var nameY = CLOUD_Y + CLOUD_HEIGHT - TEXT_GAP;
     var colHeight = Math.floor(value * HIISTOGRAM_HEIGHT / maxValue);
     var colX = CLOUD_X + (index + 1) * COL_WIDTH + index * COL_GAP;
     ctx.fillText(name, colX, nameY);
 
     var valueY = nameY - TEXT_GAP - CLOUD_GAP - colHeight;
     ctx.fillText(Math.floor(value), colX, valueY);
-    
+
     ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     if (names[i] !== 'Вы') {
       var saturation = Math.floor(100 * Math.random());
       ctx.fillStyle = 'hsl(' + BLUE_HUE + ', ' + saturation + '%, 50%)';
     }
     ctx.fillRect(colX, valueY + CLOUD_GAP, COL_WIDTH, colHeight);
-  }
+  };
 
   renderCloud();
   for (var i = 0; i < times.length; i++) {
