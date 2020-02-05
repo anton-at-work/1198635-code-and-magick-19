@@ -66,7 +66,7 @@
   var userFireBall = document.querySelector('.setup-fireball-wrap');
   var userCoat = document.querySelector('.setup-wizard .wizard-coat');
   var userEyes = document.querySelector('.setup-wizard .wizard-eyes');
-  var setupOpen = document.querySelector('.setup-open');
+  var setupOpen = document.querySelector('.setup-open-icon');
   var setupClose = userDialog.querySelector('.setup-close');
 
   addWizards(makeWizards());
@@ -87,9 +87,7 @@
     document.removeEventListener('keydown', onPopupEscPress);
   };
 
-  setupOpen.addEventListener('click', function () {
-    openPopup();
-  });
+  setupOpen.addEventListener('click', openPopup);
 
   setupOpen.addEventListener('keydown', function (evt) {
     if (evt.key === ENTER_KEY) {
@@ -97,9 +95,7 @@
     }
   });
 
-  setupClose.addEventListener('click', function () {
-    closePopup();
-  });
+  setupClose.addEventListener('click', closePopup);
 
   setupClose.addEventListener('keydown', function (evt) {
     if (evt.key === ENTER_KEY) {
