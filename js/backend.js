@@ -33,10 +33,10 @@
 
   window.backend = {
     load: function (onLoad, onError) {
-      request ('GET', LOAD_URL, null, onLoad, onError);
+      request('GET', LOAD_URL, null, onLoad, onError);
     },
     save: function (data, onLoad, onError) {
-      request ('POST', SAVE_URL, data, onLoad, onError);
+      request('POST', SAVE_URL, data, onLoad, onError);
     }
   };
 })();

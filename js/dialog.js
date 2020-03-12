@@ -3,11 +3,24 @@
   var ESC_KEY = 'Escape';
   var ENTER_KEY = 'Enter';
 
+  var setupOpen = document.querySelector('.setup-open-icon');
   var userDialog = document.querySelector('.setup');
   var dialogHandler = userDialog.querySelector('.upload');
-  var setupOpen = document.querySelector('.setup-open-icon');
   var setupClose = userDialog.querySelector('.setup-close');
-  var userName = document.querySelector('.setup-user-name');
+  var userName = userDialog.querySelector('.setup-user-name');
+  var userForm = userDialog.querySelector('.setup-wizard-form');
+
+  var onError = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
 
   var onPopupEscPress = function (evt) {
     if (evt.key === ESC_KEY && evt.target !== userName) {
@@ -18,11 +31,18 @@
   var openPopup = function () {
     userDialog.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
+    userForm.addEventListener('submit', onFormSubmit);
   };
 
   var closePopup = function () {
     userDialog.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
+    userForm.removeEventListener('submit', onFormSubmit);
+  };
+
+  var onFormSubmit = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(userForm), closePopup, onError);
   };
 
   setupOpen.addEventListener('click', openPopup);
@@ -89,5 +109,7 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
-
+  window.dialog = {
+    error: onError
+  };
 })();
