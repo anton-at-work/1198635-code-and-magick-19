@@ -28,21 +28,28 @@
     }
   };
 
+  var onPopupEnterPress = function (evt) {
+    if (evt.key === ENTER_KEY) {
+      closePopup();
+    }
+  };
+
   var openPopup = function () {
     userDialog.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
+    dialogHandler.addEventListener('mousedown', onMouseDown);
     userForm.addEventListener('submit', onFormSubmit);
+    setupClose.addEventListener('click', closePopup);
+    setupClose.addEventListener('keydown', onPopupEnterPress);
   };
 
   var closePopup = function () {
     userDialog.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
+    dialogHandler.removeEventListener('mousedown', onMouseDown);
     userForm.removeEventListener('submit', onFormSubmit);
-  };
-
-  var onFormSubmit = function (evt) {
-    evt.preventDefault();
-    window.backend.save(new FormData(userForm), closePopup, onError);
+    setupClose.removeEventListener('click', closePopup);
+    setupClose.removeEventListener('keydown', onPopupEnterPress);
   };
 
   setupOpen.addEventListener('click', openPopup);
@@ -53,15 +60,12 @@
     }
   });
 
-  setupClose.addEventListener('click', closePopup);
+  var onFormSubmit = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(userForm), closePopup, onError);
+  };
 
-  setupClose.addEventListener('keydown', function (evt) {
-    if (evt.key === ENTER_KEY) {
-      closePopup();
-    }
-  });
-
-  dialogHandler.addEventListener('mousedown', function (evt) {
+  var onMouseDown = function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -107,7 +111,7 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  });
+  };
 
   window.dialog = {
     error: onError
