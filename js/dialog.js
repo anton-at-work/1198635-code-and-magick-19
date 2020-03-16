@@ -10,6 +10,11 @@
   var userName = userDialog.querySelector('.setup-user-name');
   var userForm = userDialog.querySelector('.setup-wizard-form');
 
+  var defaultAvatarSrc = userDialog.querySelector('.setup-user-pic').src;
+  var defaultFireballColor = userForm.querySelector('input[name=fireball-color]').value;
+  var defaultCoatColor = userForm.querySelector('input[name=coat-color]').value;
+  var defaultEyesColor = userForm.querySelector('input[name=eyes-color]').value;
+
   var onError = function (errorMessage) {
     var node = document.createElement('div');
     node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
@@ -34,6 +39,23 @@
     }
   };
 
+  var setDefaults = function () {
+    userForm.reset();
+    userDialog.style = '';
+    userDialog.querySelector('.setup-user-pic').src = defaultAvatarSrc;
+
+    userDialog.querySelector('.setup-fireball-wrap').style.backgroundColor =
+      defaultFireballColor;
+
+    userDialog.querySelector('.setup-wizard .wizard-coat').style.fill =
+      defaultCoatColor;
+    window.setup.onCoatChange(defaultCoatColor);
+
+    userDialog.querySelector('.setup-wizard .wizard-eyes').style.fill =
+      defaultEyesColor;
+    window.setup.onEyesChange(defaultEyesColor);
+  };
+
   var openPopup = function () {
     userDialog.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
@@ -50,6 +72,7 @@
     userForm.removeEventListener('submit', onFormSubmit);
     setupClose.removeEventListener('click', closePopup);
     setupClose.removeEventListener('keydown', onPopupEnterPress);
+    setDefaults();
   };
 
   setupOpen.addEventListener('click', openPopup);
