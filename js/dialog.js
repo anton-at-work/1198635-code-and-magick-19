@@ -50,6 +50,7 @@
     userForm.removeEventListener('submit', onFormSubmit);
     setupClose.removeEventListener('click', closePopup);
     setupClose.removeEventListener('keydown', onPopupEnterPress);
+    userDialog.style = '';
   };
 
   setupOpen.addEventListener('click', openPopup);
