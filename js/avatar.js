@@ -6,7 +6,7 @@
   var fileChooser = document.querySelector('.upload input[type=file]');
   var preview = document.querySelector('.setup-user-pic');
 
-  fileChooser.addEventListener('change', function () {
+  var onFileChange = function () {
     var file = fileChooser.files[0];
     var fileName = file.name.toLowerCase();
 
@@ -23,5 +23,10 @@
 
       reader.readAsDataURL(file);
     }
-  });
+  };
+
+  window.avatar = {
+    fileChange: onFileChange
+  };
+
 })();
